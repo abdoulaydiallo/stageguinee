@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Emplois & Stages  pour étudiants et jeunes diplômés",
   description:
-    "Une plateforme numérique novatrice et inclusive qui transforme la manière dont les jeunes dipômés guinéens accèdent à des opportinités stages locaux pertinant.",
+    "Une plateforme numérique novatrice et inclusive qui transforme la manière dont les jeunes dipômés Guinéens accèdent à des opportinités stages locaux pertinant.",
 };
 
 export default function RootLayout({
