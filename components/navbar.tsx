@@ -6,6 +6,7 @@ import { AiOutlineClose, AiOutlineMenu } from "react-icons/ai";
 import MainNav from "./main-nav";
 import { useState } from "react";
 import MobileNav from "./mobile-nav";
+import Logo from "./logo";
 
 interface NavBarProps {
   userId?: string;
@@ -22,15 +23,8 @@ const Navbar: React.FC<NavBarProps> = ({ userId }) => {
     <div className="fixed w-full h-16 shadow-md bg-white">
       <div className="flex items-center h-full w-full container mx-auto">
         {/** LOGO */}
-        <Link href="/">
-          <Image
-            alt="logo"
-            src="/images/logo-slim-02.svg"
-            width={190}
-            height={75}
-            className="cursor-pointer"
-          />
-        </Link>
+        <Logo />
+
         {/** Desktop Menu */}
         <MainNav userId={userId} />
 
@@ -48,15 +42,7 @@ const Navbar: React.FC<NavBarProps> = ({ userId }) => {
           }
         >
           <div className="flex items-center p-4">
-            <Link href="/">
-              <Image
-                alt="logo"
-                src="/images/logo-slim-02.svg"
-                width={120}
-                height={65}
-                className="cursor-pointer"
-              />
-            </Link>
+            <Logo />
 
             <div
               onClick={() => setMenuOpen(!menuOpen)}
