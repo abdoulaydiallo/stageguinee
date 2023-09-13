@@ -35,7 +35,7 @@ const MainNav: React.FC<MainNavProps> = ({ userId }) => {
   return (
     <div className="w-full flex items-center justify-between">
       {userId && isSignedIn ? (
-        <div className="mx-16 flex items-center gap-12">
+        <div className="hidden sm:flex items-center gap-12 mx-16">
           {routes.map((item) => (
             <Link
               key={item.href}
