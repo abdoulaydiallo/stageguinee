@@ -7,12 +7,14 @@ import MainNav from "./main-nav";
 import { useState } from "react";
 import MobileNav from "./mobile-nav";
 import Logo from "./logo";
+import { User } from "@clerk/nextjs/server";
 
 interface NavBarProps {
-  userId?: string;
+  user?: User;
+  userId: string;
 }
 
-const Navbar: React.FC<NavBarProps> = ({ userId }) => {
+const Navbar: React.FC<NavBarProps> = ({ user, userId }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNav = () => {
@@ -20,7 +22,7 @@ const Navbar: React.FC<NavBarProps> = ({ userId }) => {
   };
 
   return (
-    <div className="fixed w-full h-16 shadow-md bg-white">
+    <div className="sticky top-0 w-full h-16 shadow-md bg-white z-30">
       <div className="flex items-center h-full w-full container mx-auto">
         {/** LOGO */}
         <Logo />

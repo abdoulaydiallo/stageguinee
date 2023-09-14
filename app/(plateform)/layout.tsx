@@ -1,6 +1,6 @@
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import { auth } from "@clerk/nextjs";
+import { auth, useUser } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 interface PlateformLayoutProps {
@@ -8,7 +8,7 @@ interface PlateformLayoutProps {
 }
 
 const PlateformLayout: React.FC<PlateformLayoutProps> = ({ children }) => {
-  const { userId } = auth();
+  const { userId, user } = auth();
 
   if (!userId) {
     redirect("/");
@@ -16,8 +16,9 @@ const PlateformLayout: React.FC<PlateformLayoutProps> = ({ children }) => {
 
   return (
     <>
-      <Navbar userId={userId} />
+      <Navbar user={user} userId={userId} />
       <div className="min-h-[50vh]">{children}</div>
+      <Footer />
     </>
   );
 };

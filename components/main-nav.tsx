@@ -2,18 +2,19 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { PiCaretDownLight, PiCaretRightLight } from "react-icons/pi";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { useAuth, useClerk, useUser } from "@clerk/nextjs";
 import Avatar from "./avatar";
 import { usePathname } from "next/navigation";
 
 interface MainNavProps {
-  userId?: string;
+  userId: string;
 }
 
 const MainNav: React.FC<MainNavProps> = ({ userId }) => {
+  const { user } = useUser();
   const pathname = usePathname();
-  const { user, isSignedIn } = useUser();
   const { signOut } = useClerk();
+  const { isLoaded, isSignedIn } = useAuth();
   const routes = [
     {
       label: "Emplois et Stages",
@@ -21,7 +22,7 @@ const MainNav: React.FC<MainNavProps> = ({ userId }) => {
       active: pathname == "/member/jobs-listing",
     },
     {
-      label: "Events",
+      label: "Evénements",
       href: "/member/events",
       active: pathname == "/member/events",
     },
@@ -32,9 +33,13 @@ const MainNav: React.FC<MainNavProps> = ({ userId }) => {
     },
   ];
 
+  if (!isSignedIn) {
+    return null;
+  }
+
   return (
     <div className="w-full flex items-center justify-between">
-      {userId && isSignedIn ? (
+      {userId ? (
         <div className="hidden sm:flex items-center gap-12 mx-16">
           {routes.map((item) => (
             <Link
@@ -129,20 +134,22 @@ const MainNav: React.FC<MainNavProps> = ({ userId }) => {
       )}
 
       <div className="hidden sm:flex ml-auto">
-        {userId && isSignedIn ? (
+        {userId ? (
           <Popover>
             <PopoverTrigger>
               <div className="flex items-center gap-4">
-                <div className="text-md font-light">
-                  Salut, {user?.firstName}
-                </div>
+                {isLoaded && (
+                  <div className="text-md font-light">{user?.fullName}</div>
+                )}
                 <Avatar />
               </div>
             </PopoverTrigger>
             <PopoverContent className="w-58">
               <ul className="flex flex-col gap-2">
                 <li className="text-sm">Votre profile est 100% complète</li>
-                <li className="text-sm border-t border-black">Profile</li>
+                <li className="text-sm border-t border-black cursor-pointer">
+                  <Link href="/member/edit-profile">Profile</Link>
+                </li>
                 <li className="text-sm">Inviations</li>
                 <li className="text-sm  ">Messages</li>
                 <li className="text-sm border-b border-black">Paramètres</li>

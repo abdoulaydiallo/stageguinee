@@ -1,5 +1,10 @@
 import Image from "next/image";
-import { PiFacebookLogo, PiInstagramLogo, PiYoutubeLogo } from "react-icons/pi";
+import {
+  PiFacebookLogo,
+  PiInstagramLogo,
+  PiLinkedinLogo,
+  PiYoutubeLogo,
+} from "react-icons/pi";
 
 const Footer = () => {
   return (
@@ -11,7 +16,7 @@ const Footer = () => {
         height={75}
         className="mb-8"
       />
-      <div className="flex flex-col sm:flex-row gap-16">
+      <div className="flex flex-col sm:flex-row gap-4 md:gap-16">
         <div className="">
           <div className="font-semibold text-white">Société</div>
           <div className="text-gray-300">A propos</div>
@@ -20,16 +25,18 @@ const Footer = () => {
         </div>
         <div className="">
           <div className="font-semibold text-white">Soutien</div>
-          <div className="text-gray-300">FAQs</div>
+          <div className="text-gray-300">FAQ</div>
           <div className="text-gray-300">Contactez-nous</div>
         </div>
         <div className="">
-          <div className="font-semibold text-white">Travails</div>
+          <div className="font-semibold text-white">Emplois</div>
           <div className="text-gray-300">Emplois de Niveau Débutant</div>
           <div className="text-gray-300">Stages</div>
         </div>
-        <div className="ml-auto">
-          <div className="font-semibold text-white mb-4">Suivez-nous</div>
+        <div className="sm:ml-auto">
+          <div className="font-semibold text-white mb-4">
+            Connecte-toi avec nous
+          </div>
           <div className="flex space-x-4">
             <div className="w-8 h-8 text-[#0d1871] rounded-full bg-white flex items-center justify-center ">
               <PiFacebookLogo size={20} />
@@ -39,6 +46,9 @@ const Footer = () => {
             </div>
             <div className="w-8 h-8 text-[#0d1871] rounded-full bg-white flex items-center justify-center ">
               <PiYoutubeLogo size={20} />
+            </div>
+            <div className="w-8 h-8 text-[#0d1871] rounded-full bg-white flex items-center justify-center ">
+              <PiLinkedinLogo size={20} />
             </div>
           </div>
         </div>
