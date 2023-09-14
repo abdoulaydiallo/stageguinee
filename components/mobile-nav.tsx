@@ -13,12 +13,13 @@ import { Button } from "./ui/button";
 import Avatar from "./avatar";
 
 interface MobileNavProps {
-  userId?: string;
+  userId: string;
 }
 
 const MobileNav: React.FC<MobileNavProps> = ({ userId }) => {
-  const { user, isSignedIn } = useUser();
+  const { user } = useUser();
   const { signOut } = useClerk();
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [subMenuOpen1, setSubMenuOpen1] = useState(false);
   const [subMenuOpen2, setSubMenuOpen2] = useState(false);
@@ -37,15 +38,17 @@ const MobileNav: React.FC<MobileNavProps> = ({ userId }) => {
 
   return (
     <div>
-      {userId && isSignedIn ? (
+      {userId ? (
         /** User is Signin */
         <ul className="mb-4">
           <li className="mx-4 py-2 flex items-center justify-between border-b border-black">
             <div className="text-md font-semibold">{user?.fullName}</div>
-            {user?.hasImage && <Avatar />}
+            <Avatar />
           </li>
           <li className="px-4 py-2 text-sm">Emplois & Stages</li>
-          <li className="px-4 py-2 text-sm">Meilleurs entreprises</li>
+          <li className="px-4 py-2 text-sm cursor-pointer">
+            <Link href="/member/edit-profile">Profile</Link>
+          </li>
           <li className="px-4 py-2 text-sm">Conseils de carrière</li>
           <li className="mx-4 py-2 text-sm border-b border-black">Messages</li>
           <li className="px-4 py-2 text-sm">FAQ</li>
