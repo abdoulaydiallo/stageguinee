@@ -1,14 +1,19 @@
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import { auth, useUser } from "@clerk/nextjs";
+import { auth, currentUser, useUser } from "@clerk/nextjs";
+import { User } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 interface PlateformLayoutProps {
   children: React.ReactNode;
 }
 
-const PlateformLayout: React.FC<PlateformLayoutProps> = ({ children }) => {
-  const { userId, user } = auth();
+const PlateformLayout: React.FC<PlateformLayoutProps> = async ({
+  children,
+}) => {
+  const { userId } = auth();
+
+  const user: User | null = await currentUser();
 
   if (!userId) {
     redirect("/");

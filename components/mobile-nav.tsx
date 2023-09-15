@@ -8,16 +8,17 @@ import {
 } from "react-icons/pi";
 
 import { useState } from "react";
-import { useClerk, useUser } from "@clerk/nextjs";
+import { useClerk } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import Avatar from "./avatar";
+import { User } from "@clerk/nextjs/server";
 
 interface MobileNavProps {
   userId: string;
+  user?: User | null;
 }
 
-const MobileNav: React.FC<MobileNavProps> = ({ userId }) => {
-  const { user } = useUser();
+const MobileNav: React.FC<MobileNavProps> = ({ userId, user }) => {
   const { signOut } = useClerk();
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -42,7 +43,9 @@ const MobileNav: React.FC<MobileNavProps> = ({ userId }) => {
         /** User is Signin */
         <ul className="mb-4">
           <li className="mx-4 py-2 flex items-center justify-between border-b border-black">
-            <div className="text-md font-semibold">{user?.fullName}</div>
+            <div className="text-md font-semibold">
+              {user?.firstName + " " + user?.lastName}
+            </div>
             <Avatar />
           </li>
           <li className="px-4 py-2 text-sm">Emplois & Stages</li>
