@@ -9,7 +9,7 @@ import { User } from "@clerk/nextjs/server";
 
 interface NavBarProps {
   user?: User;
-  userId: string;
+  userId?: string;
 }
 
 const Navbar: React.FC<NavBarProps> = ({ user, userId }) => {
@@ -26,7 +26,7 @@ const Navbar: React.FC<NavBarProps> = ({ user, userId }) => {
         <Logo />
 
         {/** Desktop Menu */}
-        <MainNav userId={userId} />
+        <MainNav userId={userId ? userId : ""} />
 
         {/** Mobile Menu */}
 
@@ -52,7 +52,7 @@ const Navbar: React.FC<NavBarProps> = ({ user, userId }) => {
             </div>
           </div>
 
-          <MobileNav userId={userId} />
+          <MobileNav userId={userId ? userId : ""} />
         </div>
       </div>
     </div>
