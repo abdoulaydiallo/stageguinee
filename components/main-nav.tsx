@@ -14,7 +14,6 @@ const MainNav: React.FC<MainNavProps> = ({ userId }) => {
   const { user } = useUser();
   const pathname = usePathname();
   const { signOut } = useClerk();
-  const { isLoaded, isSignedIn } = useAuth();
   const routes = [
     {
       label: "Emplois et Stages",
@@ -32,10 +31,6 @@ const MainNav: React.FC<MainNavProps> = ({ userId }) => {
       active: pathname == "/member/messages",
     },
   ];
-
-  if (!isSignedIn) {
-    return null;
-  }
 
   return (
     <div className="w-full flex items-center justify-between">
@@ -138,9 +133,7 @@ const MainNav: React.FC<MainNavProps> = ({ userId }) => {
           <Popover>
             <PopoverTrigger>
               <div className="flex items-center gap-4">
-                {isLoaded && (
-                  <div className="text-md font-light">{user?.fullName}</div>
-                )}
+                <div className="text-md font-light">{user?.fullName}</div>
                 <Avatar />
               </div>
             </PopoverTrigger>

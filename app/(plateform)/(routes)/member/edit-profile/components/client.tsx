@@ -2,14 +2,7 @@
 
 import Avatar from "@/components/avatar";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTrigger,
-} from "@/components/ui/dialog";
 import { useUser } from "@clerk/nextjs";
-import { DialogTitle } from "@radix-ui/react-dialog";
 import { ImLocation } from "react-icons/im";
 import { MdModeEdit } from "react-icons/md";
 
