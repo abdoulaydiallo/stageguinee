@@ -1,17 +1,19 @@
 import Link from "next/link";
-import { Button } from "./ui/button";
-import { PiCaretDownLight, PiCaretRightLight } from "react-icons/pi";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
-import { useAuth, useClerk, useUser } from "@clerk/nextjs";
-import Avatar from "./avatar";
+import { User } from "@clerk/nextjs/server";
+import { useClerk } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
+import { PiCaretDownLight, PiCaretRightLight } from "react-icons/pi";
+
+import { Button } from "./ui/button";
+import Avatar from "./avatar";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 interface MainNavProps {
   userId: string;
+  user?: User | null;
 }
 
-const MainNav: React.FC<MainNavProps> = ({ userId }) => {
-  const { user } = useUser();
+const MainNav: React.FC<MainNavProps> = ({ userId, user }) => {
   const pathname = usePathname();
   const { signOut } = useClerk();
   const routes = [
@@ -133,7 +135,9 @@ const MainNav: React.FC<MainNavProps> = ({ userId }) => {
           <Popover>
             <PopoverTrigger>
               <div className="flex items-center gap-4">
-                <div className="text-md font-light">{user?.fullName}</div>
+                <div className="text-md font-light">
+                  {user?.firstName} {user?.lastName}
+                </div>
                 <Avatar />
               </div>
             </PopoverTrigger>

@@ -2,13 +2,15 @@
 
 import Avatar from "@/components/avatar";
 import { Button } from "@/components/ui/button";
-import { useUser } from "@clerk/nextjs";
+import { User } from "@clerk/nextjs/server";
 import { ImLocation } from "react-icons/im";
 import { MdModeEdit } from "react-icons/md";
 
-const ClientPage = () => {
-  const { user } = useUser();
+interface ClientPageProps {
+  user?: User | null;
+}
 
+const ClientPage: React.FC<ClientPageProps> = ({ user }) => {
   return (
     <div>
       <div
