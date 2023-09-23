@@ -8,8 +8,9 @@ interface AvatarProps {
   height?: number;
   width?: number;
   user?: User;
+  src?: string;
 }
-const Avatar: React.FC<AvatarProps> = ({ height, width }) => {
+const Avatar: React.FC<AvatarProps> = ({ height, width, src }) => {
   const { isLoaded, isSignedIn, user } = useUser();
 
   if (!isLoaded || !isSignedIn) {
@@ -20,7 +21,7 @@ const Avatar: React.FC<AvatarProps> = ({ height, width }) => {
     <div>
       <Image
         alt="Avatar"
-        src={user.hasImage ? user.imageUrl : "/images/placeholder.jpg"}
+        src={src ? src : "/images/placeholder.jpg"}
         width={width ? width : 35}
         height={height ? height : 35}
         className="rounded-full cursor-pointer"

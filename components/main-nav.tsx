@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { User } from "@clerk/nextjs/server";
+import { User } from "@prisma/client";
 import { useClerk } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
 import { PiCaretDownLight, PiCaretRightLight } from "react-icons/pi";
@@ -10,7 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
 interface MainNavProps {
   userId: string;
-  user?: User | null;
+  user?: User | any;
 }
 
 const MainNav: React.FC<MainNavProps> = ({ userId, user }) => {
@@ -135,21 +135,21 @@ const MainNav: React.FC<MainNavProps> = ({ userId, user }) => {
           <Popover>
             <PopoverTrigger>
               <div className="flex items-center gap-4">
-                <div className="text-md font-light">
-                  {user?.firstName} {user?.lastName}
-                </div>
-                <Avatar />
+                <div className="text-md font-light">{user?.fullName}</div>
+                <Avatar src={user?.profile?.profilePicture} />
               </div>
             </PopoverTrigger>
             <PopoverContent className="w-58">
               <ul className="flex flex-col gap-2">
                 <li className="text-sm">Votre profile est 100% complète</li>
-                <li className="text-sm border-t border-black cursor-pointer">
+                <li className="text-sm border-t border-black cursor-pointer pt-2">
                   <Link href="/member/edit-profile">Profile</Link>
                 </li>
                 <li className="text-sm">Inviations</li>
                 <li className="text-sm  ">Messages</li>
-                <li className="text-sm border-b border-black">Paramètres</li>
+                <li className="text-sm border-b border-black pb-2">
+                  Paramètres
+                </li>
                 <li className="text-sm">FAQ</li>
                 <li className="text-sm">Contactez Nous</li>
                 <li
