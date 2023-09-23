@@ -1,11 +1,80 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "cockroachdb"
-  url      = env("DATABASE_URL")
+  provider = "mysql"
+  url = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+// schema.prisma
+
+model User {
+  id            String   @id @default(uuid())
+  fullName      String 
+  email         String
+  residenceCity String?       // City where the user resides
+  phoneNumber   String?       // Phone number of user
+  profile       Profile?      @relation("UserToProfile")
+  clerkUserId   String
+  education     Education[]   @relation("UserToEducation")
+  skills        Skill[]       @relation("UserToSkill")
+  experiences   Experience[]  @relation("UserToExperience")
+  socialLink    SocialLink[]  @relation("UserToSocialLink")
+}
+
+model Profile {
+  id             String      @id @default(uuid())
+  bio            String?
+  profilePicture String?
+  createdAt      DateTime     @default(now())
+  userId         String       @unique
+  user           User         @relation("UserToProfile", fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Education {
+  id             String       @id @default(uuid())
+  institution    String
+  degree         String
+  fieldOfStudy   String
+  startDate      DateTime
+  endDate        DateTime?
+  userId         String       
+  user           User         @relation("UserToEducation", fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Skill {
+  id            String        @id @default(uuid())
+  skillName     String
+  userId        String        
+  user          User          @relation("UserToSkill",fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model Experience {
+  id            String         @id @default(uuid())
+  title         String
+  organization  String
+  startDate     DateTime
+  endDate       DateTime?
+  userId        String         
+  user          User           @relation("UserToExperience", fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model SocialLink {
+  id            String        @id @default(uuid())
+  platform      String        // Social platform (e.g., LinkedIn, GitHub)
+  url           String        // URL to the user's profile on the platform
+  userId        String        
+  user          User          @relation("UserToSocialLink", fields: [userId], references: [id])
+
+  @@index([userId])
 }

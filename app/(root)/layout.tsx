@@ -19,7 +19,7 @@ const SetupLayout: React.FC<SetupLayoutProps> = async ({ children }) => {
 
   return (
     <>
-      <Navbar user={user} />
+      <Navbar />
       <div className="min-h-[50vh]">{children}</div>
       <Footer />
     </>

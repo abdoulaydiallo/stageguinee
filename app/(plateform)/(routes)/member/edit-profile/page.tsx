@@ -1,11 +1,25 @@
-import { currentUser } from "@clerk/nextjs";
-import { User } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs";
 
 import ClientPage from "./components/client";
+import prismadb from "@/lib/prismadb";
 
 const Page = async () => {
-  const user: User | null = await currentUser();
-  return <ClientPage user={user} />;
+  const { userId } = auth();
+  if (!userId) {
+    return null;
+  }
+
+  const PrismaUser = await prismadb.user.findFirst({
+    where: {
+      clerkUserId: userId,
+    },
+    include: {
+      profile: true,
+      education: true,
+    },
+  });
+
+  return <ClientPage user={PrismaUser} />;
 };
 
 export default Page;

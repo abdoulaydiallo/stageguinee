@@ -2,12 +2,12 @@
 
 import Avatar from "@/components/avatar";
 import { Button } from "@/components/ui/button";
-import { User } from "@clerk/nextjs/server";
 import { ImLocation } from "react-icons/im";
 import { MdModeEdit } from "react-icons/md";
+import { User } from "@prisma/client";
 
 interface ClientPageProps {
-  user?: User | null;
+  user?: User | any;
 }
 
 const ClientPage: React.FC<ClientPageProps> = ({ user }) => {
@@ -23,7 +23,11 @@ const ClientPage: React.FC<ClientPageProps> = ({ user }) => {
         <div className="container mx-auto py-8 ">
           <div className="w-full flex flex-col items-center justify-center gap-4 sm:flex-row-reverse  sm:justify-between sm:px-36">
             <div className="flex flex-col items-center justify-center mt-8 mb-4">
-              <Avatar height={150} width={150} />
+              <Avatar
+                src={user?.profile?.profilePicture}
+                height={150}
+                width={150}
+              />
               <Button className="bg-white hover:bg-white uppercase text-[#3c71f5] my-4">
                 Demographique et plus
               </Button>
@@ -34,10 +38,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ user }) => {
                 className="text-gray-200 cursor-pointer absolute top-0 right-0"
               />
               <div className="text-2xl  font-bold py-4">
-                <div className=" flex gap-2">
-                  <div className="text-white">{user?.firstName}</div>
-                  <div className="text-[#5cb7e5]">{user?.lastName}</div>
-                </div>
+                <div className=" flex gap-2 text-white">{user?.fullName}</div>
                 <div className="w-full sm:w-8 mt-2 border-b-2 border-white"></div>
               </div>
               <div className="uppercase text-white font-bold py-2">
@@ -52,7 +53,7 @@ const ClientPage: React.FC<ClientPageProps> = ({ user }) => {
               </div>
               <div className="flex items-center text-white gap-2">
                 <ImLocation size={15} className="" />
-                <div>Ajouter votre ville</div>
+                <div>{user?.residenceCity}</div>
               </div>
             </div>
           </div>

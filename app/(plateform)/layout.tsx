@@ -1,27 +1,33 @@
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import { auth, currentUser, useUser } from "@clerk/nextjs";
-import { User } from "@clerk/nextjs/server";
+import prismadb from "@/lib/prismadb";
+import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 
 interface PlateformLayoutProps {
   children: React.ReactNode;
 }
-
 const PlateformLayout: React.FC<PlateformLayoutProps> = async ({
   children,
 }) => {
   const { userId } = auth();
 
-  const user: User | null = await currentUser();
-
   if (!userId) {
     redirect("/");
   }
+  const PrismaUser = await prismadb.user.findFirst({
+    where: {
+      clerkUserId: userId,
+    },
+    include: {
+      profile: true,
+      education: true,
+    },
+  });
 
   return (
     <>
-      <Navbar user={user} userId={userId} />
+      <Navbar user={PrismaUser} userId={userId} />
       <div className="min-h-[50vh]">{children}</div>
       <Footer />
     </>

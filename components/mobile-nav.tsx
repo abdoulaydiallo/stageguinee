@@ -11,11 +11,11 @@ import { useState } from "react";
 import { useClerk } from "@clerk/nextjs";
 import { Button } from "./ui/button";
 import Avatar from "./avatar";
-import { User } from "@clerk/nextjs/server";
+import { User } from "@prisma/client";
 
 interface MobileNavProps {
   userId: string;
-  user?: User | null;
+  user?: User | any;
 }
 
 const MobileNav: React.FC<MobileNavProps> = ({ userId, user }) => {
@@ -43,10 +43,8 @@ const MobileNav: React.FC<MobileNavProps> = ({ userId, user }) => {
         /** User is Signin */
         <ul className="mb-4">
           <li className="mx-4 py-2 flex items-center justify-between border-b border-black">
-            <div className="text-md font-semibold">
-              {user?.firstName + " " + user?.lastName}
-            </div>
-            <Avatar />
+            <div className="text-md font-semibold">{user?.fullName}</div>
+            <Avatar src={user?.profile?.profilePicture} />
           </li>
           <li className="px-4 py-2 text-sm">Emplois & Stages</li>
           <li className="px-4 py-2 text-sm cursor-pointer">

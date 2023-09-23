@@ -5,7 +5,7 @@ import MainNav from "./main-nav";
 import { useState } from "react";
 import MobileNav from "./mobile-nav";
 import Logo from "./logo";
-import { User } from "@clerk/nextjs/server";
+import { User } from "@prisma/client";
 
 interface NavBarProps {
   user?: User | null;

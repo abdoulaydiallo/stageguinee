@@ -1,7 +1,9 @@
 {
-    "githubPullRequests.remotes": [
-        "origin",
-        "upstream",
-        "https://github.com/abdoulaydiallo/stageguinee.git"
-    ]
+  "githubPullRequests.remotes": [
+    "origin",
+    "upstream",
+    "https://github.com/abdoulaydiallo/stageguinee.git"
+  ],
+  "WillLuke.nextjs.addTypesOnSave": true,
+  "WillLuke.nextjs.hasPrompted": true
 }
