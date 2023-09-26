@@ -17,11 +17,13 @@ model User {
   residenceCity String?       // City where the user resides
   phoneNumber   String?       // Phone number of user
   profile       Profile?      @relation("UserToProfile")
-  clerkUserId   String
+  clerkUserId   String        @unique
   education     Education[]   @relation("UserToEducation")
   skills        Skill[]       @relation("UserToSkill")
   experiences   Experience[]  @relation("UserToExperience")
   socialLink    SocialLink[]  @relation("UserToSocialLink")
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
 }
 
 model Profile {
