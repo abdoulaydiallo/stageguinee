@@ -5,20 +5,16 @@ import { NextResponse } from "next/server";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { institution, degree, fieldOfStudy, startDate, endDate, userId } =
-      body;
+    const { organization, title, startDate, endDate, userId } = body;
 
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    if (!institution) {
-      return new NextResponse("institution is required", { status: 400 });
+    if (!organization) {
+      return new NextResponse("organization is required", { status: 400 });
     }
-    if (!degree) {
-      return new NextResponse("degree is required", { status: 400 });
-    }
-    if (!fieldOfStudy) {
-      return new NextResponse("fieldOfStudy is required", { status: 400 });
+    if (!title) {
+      return new NextResponse("title is required", { status: 400 });
     }
     if (!startDate) {
       return new NextResponse("startDate is required", { status: 400 });
@@ -27,30 +23,30 @@ export async function POST(request: Request) {
       return new NextResponse("endDate is required", { status: 400 });
     }
 
-    const education = await prismadb.education.create({
+    const experience = await prismadb.experience.create({
       data: {
-        institution,
-        degree,
-        fieldOfStudy,
+        organization,
+        title,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         userId,
       },
     });
 
-    return NextResponse.json(education);
+    return NextResponse.json(experience);
   } catch (error) {
-    console.log("[EDUCATION_POST]", error);
+    console.log("[EXPERIENCE_POST]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
+
 export async function PATCH(request: Request) {
   try {
     const body = await request.json();
     const {
       id,
-      institution,
-      degree,
+      organization,
+      title,
       fieldOfStudy,
       startDate,
       endDate,
@@ -60,20 +56,14 @@ export async function PATCH(request: Request) {
     if (!userId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
-    if (!institution) {
-      return new NextResponse("institution is required", { status: 400 });
+    if (!organization) {
+      return new NextResponse("organisation is required", { status: 400 });
     }
-    if (!degree) {
-      return new NextResponse("degree is required", { status: 400 });
-    }
-    if (!fieldOfStudy) {
-      return new NextResponse("fieldOfStudy is required", { status: 400 });
+    if (!title) {
+      return new NextResponse("title is required", { status: 400 });
     }
     if (!startDate) {
       return new NextResponse("startDate is required", { status: 400 });
-    }
-    if (!endDate) {
-      return new NextResponse("endDate is required", { status: 400 });
     }
 
     const userByUserId = await prismadb.user.findFirst({
@@ -86,14 +76,13 @@ export async function PATCH(request: Request) {
       return new NextResponse("Unauthorized", { status: 403 });
     }
 
-    const education = await prismadb.education.update({
+    const education = await prismadb.experience.update({
       where: {
         id: id,
       },
       data: {
-        institution,
-        degree,
-        fieldOfStudy,
+        organization,
+        title,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         userId,
@@ -102,7 +91,7 @@ export async function PATCH(request: Request) {
 
     return NextResponse.json(education);
   } catch (error) {
-    console.log("[EDUCATION_PATCH]", error);
+    console.log("[EXPERIENCE_PATCH]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }

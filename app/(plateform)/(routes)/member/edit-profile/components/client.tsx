@@ -1,10 +1,12 @@
 "use client";
 
-import Avatar from "@/components/avatar";
-import { Button } from "@/components/ui/button";
-import { ImLocation } from "react-icons/im";
-import { MdModeEdit } from "react-icons/md";
 import { User } from "@prisma/client";
+import { StudyBox } from "./study";
+import { SocialBox } from "./social";
+import { BannerBox } from "./banner";
+import WorkBox from "./work";
+import SkillBox from "./skill";
+import { WorkCard } from "./cards/workCard";
 
 interface ClientPageProps {
   user?: User | any;
@@ -13,53 +15,26 @@ interface ClientPageProps {
 const ClientPage: React.FC<ClientPageProps> = ({ user }) => {
   return (
     <div>
-      <div
-        className="w-full"
-        style={{
-          backgroundImage: `url("/images/header_background_2018.png")`,
-          backgroundSize: "cover",
-        }}
-      >
-        <div className="container mx-auto py-8 ">
-          <div className="w-full flex flex-col items-center justify-center gap-4 sm:flex-row-reverse  sm:justify-between sm:px-36">
-            <div className="flex flex-col items-center justify-center mt-8 mb-4">
-              <Avatar
-                src={user?.profile?.profilePicture}
-                height={150}
-                width={150}
-              />
-              <Button className="bg-white hover:bg-white uppercase text-[#3c71f5] my-4">
-                Demographique et plus
-              </Button>
+      <BannerBox user={user} />
+      <div className="md:min-h-[70vh]  bg-gray-50">
+        <div className="md:relative container m-auto ">
+          <div className=" flex flex-col md:flex-row justify-center md:justify-between w-full gap-4">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
+              <StudyBox education={user?.education} userId={user?.id} />
+              {user.experiences ? (
+                <WorkCard experience={user?.experiences} userId={user?.id} />
+              ) : (
+                <WorkBox experience={user?.experiences} userId={user?.id} />
+              )}
+              <SkillBox competence={user?.skills} userId={user?.id} />
             </div>
-            <div className="relative">
-              <MdModeEdit
-                size={20}
-                className="text-gray-200 cursor-pointer absolute top-0 right-0"
-              />
-              <div className="text-2xl  font-bold py-4">
-                <div className=" flex gap-2 text-white">{user?.fullName}</div>
-                <div className="w-full sm:w-8 mt-2 border-b-2 border-white"></div>
-              </div>
-              <div className="uppercase text-white font-bold py-2">
-                A propos de moi
-              </div>
-              <div className="sm:text-center text-gray-200 font-light">
-                Modifiez cette section pour parler un peu de vous aux employeurs
-                !
-              </div>
-              <div className="uppercase text-white font-bold py-2">
-                Localisation
-              </div>
-              <div className="flex items-center text-white gap-2">
-                <ImLocation size={15} className="" />
-                <div>{user?.residenceCity}</div>
-              </div>
+            <div className="w-full md:w-64 flex flex-col ">
+              <SocialBox title="Ajouter Github" />
+              <SocialBox title="Ajouter Instagram" />
             </div>
           </div>
         </div>
       </div>
-      <div className="h-[40vh]"></div>
     </div>
   );
 };

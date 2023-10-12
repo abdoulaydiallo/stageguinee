@@ -55,6 +55,7 @@ const Client: React.FC<ClientProps> = ({ userId }) => {
     try {
       setIsLoading(true);
       const response = await axios.post("/api/register/study", values);
+      toast.success("Success !");
       window.location.assign("/member/edit-profile");
     } catch (error) {
       toast.error("Something went wrong !");

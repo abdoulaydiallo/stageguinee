@@ -16,6 +16,8 @@ const Page = async () => {
     include: {
       profile: true,
       education: true,
+      experiences: true,
+      skills: true,
     },
   });
 

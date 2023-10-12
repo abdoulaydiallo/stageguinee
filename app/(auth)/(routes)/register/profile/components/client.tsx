@@ -87,7 +87,7 @@ const Client: React.FC<ClientProps> = ({ currentUser, userId }) => {
       }
       const response = await axios.post("/api/register/profile", values);
       toast.success("Success !");
-      window.location.assign(`/register/study?userId=${response.data.id}`);
+      window.location.assign(`/register/${response.data.id}`);
     } catch (error) {
       toast.error("Something went wrong");
     } finally {

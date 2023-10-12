@@ -49,7 +49,7 @@ model Education {
 
   @@index([userId])
 }
-
+ 
 model Skill {
   id            String        @id @default(uuid())
   skillName     String
