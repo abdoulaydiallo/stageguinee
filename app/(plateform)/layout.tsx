@@ -13,15 +13,15 @@ const PlateformLayout: React.FC<PlateformLayoutProps> = async ({
   const { userId } = auth();
 
   if (!userId) {
-    redirect("/");
+    redirect("/sign-in");
   }
-  const PrismaUser = await prismadb.user.findFirst({
+
+  const PrismaUser = await prismadb.user.findUnique({
     where: {
       clerkUserId: userId,
     },
     include: {
       profile: true,
-      education: true,
     },
   });
 
